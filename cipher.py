@@ -15,6 +15,7 @@ Students. Academic penalties up to and including an F in the course are likely.
 UT EID 1: KN9995
 UT EID 2: NONE
 """
+
 def rail_fence_encode(string, key):
     """
     pre: string is a string of characters and key is a positive
@@ -25,18 +26,18 @@ def rail_fence_encode(string, key):
     """
     if not string:
         return ""
-    if key >= len(string) or key < 2:
+    if key >= len(string):
         return string
     rails = ['' for _ in range(key)]
     rail = 0
     direction = 1
     for char in string:
         rails[rail] += char
-        rail += direction
-        if rail == key - 1:
-            direction = -1
-        elif rail == 0:
+        if rail == 0:
             direction = 1
+        elif rail == key - 1:
+            direction = -1
+        rail += direction
     return "".join(rails)
 
 def rail_fence_decode(string, key):
@@ -49,7 +50,7 @@ def rail_fence_decode(string, key):
     """
     if not string:
         return ""
-    if key >= len(string) or key < 2:
+    if key >= len(string):
         return string
     n = len(string)
     pattern = [0] * n
@@ -57,31 +58,22 @@ def rail_fence_decode(string, key):
     direction = 1
     for i in range(n):
         pattern[i] = rail
-        rail += direction
-        if rail == key - 1:
-            direction = -1
-        elif rail == 0:
+        if rail == 0:
             direction = 1
+        elif rail == key - 1:
+            direction = -1
+        rail += direction
     rail_counts = [0] * key
     for r in pattern:
         rail_counts[r] += 1
-    rails_data = [''] * key
+    rails = []
     index = 0
-    for i in range(key):
-        rails_data[i] = list(string[index : index + rail_counts[i]])
-        index += rail_counts[i]
-    result = [''] * n
-    rail_index = [0] * key
-    rail = 0
-    direction = 1
-    for i in range(n):
-        result[i] = rails_data[rail][rail_index[rail]]
-        rail_index[rail] += 1
-        rail += direction
-        if rail == key - 1:
-            direction = -1
-        elif rail == 0:
-            direction = 1
+    for count in rail_counts:
+        rails.append(list(string[index:index+count]))
+        index += count
+    result = []
+    for r in pattern:
+        result.append(rails[r].pop(0))
     return "".join(result)
 
 def filter_string(string):
@@ -91,8 +83,8 @@ def filter_string(string):
         removes all digits, punctuation marks, and spaces. It
         returns a single string with only lower case characters
     """
-    return "".join(c for c in string.lower() if 'a' <= c <= 'z')
-    
+    return "".join(c for c in string.lower() if c.isalpha())
+
 def encode_character(p, s):
     """
     pre: p is a character in the pass phrase and s is a character
@@ -110,7 +102,7 @@ def decode_character(p, s):
     post: function returns a single character decoded using the
         Vigenere algorithm. You may not use a 2-D list
     """
-    offset = (ord(s) - ord('a') - (ord(p) - ord('a')) + 26) % 26
+    offset = (ord(s) - ord('a') - (ord(p) - ord('a'))) % 26
     return chr(offset + ord('a'))
 
 def vigenere_encode(string, phrase):
