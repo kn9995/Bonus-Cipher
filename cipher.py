@@ -15,7 +15,6 @@ Students. Academic penalties up to and including an F in the course are likely.
 UT EID 1: KN9995
 UT EID 2: NONE
 """
-
 def rail_fence_encode(string, key):
     """
     pre: string is a string of characters and key is a positive
@@ -52,10 +51,11 @@ def rail_fence_decode(string, key):
         return ""
     if key >= len(string):
         return string
-    pattern = [0] * len(string)
+    n = len(string)
+    pattern = [0] * n
     rail = 0
     direction = 1
-    for i in range(len(string)):
+    for i in range(n):
         pattern[i] = rail
         rail += direction
         if rail == key - 1:
@@ -160,7 +160,6 @@ def main():
     # decrypt and print the plain text using Vigenere cipher
     decoded_vig = vigenere_decode(encoded_vig_input, pass_phrase_decode)
     print(decoded_vig)
-
 
 # Do NOT modify the following code.
 if __name__ == "__main__":
