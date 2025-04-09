@@ -19,10 +19,10 @@ UT EID 2: NONE
 def rail_fence_encode(string, key):
     """
     pre: string is a string of characters and key is a positive
-        integer 2 or greater and strictly less than the length
-        of string
+         integer 2 or greater and strictly less than the length
+         of string
     post: returns a single string that is encoded with
-        rail fence algorithm
+         rail fence algorithm
     """
     if not string:
         return ""
@@ -43,10 +43,10 @@ def rail_fence_encode(string, key):
 def rail_fence_decode(string, key):
     """
     pre: string is a string of characters and key is a positive
-        integer 2 or greater and strictly less than the length
-        of string
+         integer 2 or greater and strictly less than the length
+         of string
     post: function returns a single string that is decoded with
-        rail fence algorithm
+         rail fence algorithm
     """
     if not string:
         return ""
@@ -80,17 +80,17 @@ def filter_string(string):
     """
     pre: string is a string of characters
     post: function converts all characters to lower case and then
-        removes all digits, punctuation marks, and spaces. It
-        returns a single string with only lower case characters
+         removes all digits, punctuation marks, and spaces. It
+         returns a single string with only lower case characters
     """
     return "".join(c for c in string.lower() if c.isalpha())
 
 def encode_character(p, s):
     """
     pre: p is a character in the pass phrase and s is a character
-        in the plain text
+         in the plain text
     post: function returns a single character encoded using the
-        Vigenere algorithm. You may not use a 2-D list
+         Vigenere algorithm. You may not use a 2-D list
     """
     offset = (ord(p) - ord('a') + ord(s) - ord('a')) % 26
     return chr(offset + ord('a'))
@@ -98,9 +98,9 @@ def encode_character(p, s):
 def decode_character(p, s):
     """
     pre: p is a character in the pass phrase and s is a character
-        in the encrypted text
+         in the encrypted text
     post: function returns a single character decoded using the
-        Vigenere algorithm. You may not use a 2-D list
+         Vigenere algorithm. You may not use a 2-D list
     """
     offset = (ord(s) - ord('a') - (ord(p) - ord('a'))) % 26
     return chr(offset + ord('a'))
@@ -109,7 +109,7 @@ def vigenere_encode(string, phrase):
     """
     pre: string is a string of characters and phrase is a pass phrase
     post: function returns a single string that is encoded with
-        Vigenere algorithm
+         Vigenere algorithm
     """
     filtered = filter_string(string)
     encoded = []
@@ -122,7 +122,7 @@ def vigenere_decode(string, phrase):
     """
     pre: string is a string of characters and phrase is a pass phrase
     post: function returns a single string that is decoded with
-        Vigenere algorithm
+         Vigenere algorithm
     """
     filtered = filter_string(string)
     decoded = []
@@ -139,28 +139,44 @@ def main():
     rail_key_encode = int(input().strip())
     # encrypt and print the encoded text using rail fence cipher
     encoded_rf = rail_fence_encode(plain_text_rf, rail_key_encode)
-    print(encoded_rf)
     # read encoded text from stdin (terminal/input)
     encoded_rf_input = input().rstrip("\n")
     # read the key from stdin (terminal/input)
     rail_key_decode = int(input().strip())
     # decrypt and print the plain text using rail fence cipher
     decoded_rf = rail_fence_decode(encoded_rf_input, rail_key_decode)
-    print(decoded_rf)
     # read the plain text from stdin (terminal/input)
     plain_text_vig = input().rstrip("\n")
     # read the pass phrase from stdin (terminal/input)
     pass_phrase_encode = input().rstrip("\n")
     # encrypt and print the encoded text using Vigenere cipher
     encoded_vig = vigenere_encode(plain_text_vig, pass_phrase_encode)
-    print(encoded_vig)
     # read the encoded text from stdin (terminal/input)
     encoded_vig_input = input().rstrip("\n")
     # read the pass phrase from stdin (terminal/input)
     pass_phrase_decode = input().rstrip("\n")
     # decrypt and print the plain text using Vigenere cipher
     decoded_vig = vigenere_decode(encoded_vig_input, pass_phrase_decode)
-    print(decoded_vig)
+    
+    print("Rail Fence Cipher")
+    print()
+    print("Plain Text: " + plain_text_rf)
+    print("Key: " + str(rail_key_encode))
+    print("Encoded Text: " + encoded_rf)
+    print()
+    print("Encoded Text: " + encoded_rf_input)
+    print("Enter Key: " + str(rail_key_decode))
+    print("Decoded Text: " + decoded_rf)
+    print()
+    print("Vigenere Cipher")
+    print()
+    print("Plain Text: " + plain_text_vig)
+    print("Pass Phrase: " + pass_phrase_encode)
+    print("Encoded Text: " + encoded_vig)
+    print()
+    print("Encoded Text: " + encoded_vig_input)
+    print("Pass Phrase: " + pass_phrase_decode)
+    print("Decoded Text: " + decoded_vig)
 
 # Do NOT modify the following code.
 if __name__ == "__main__":
