@@ -68,7 +68,7 @@ def rail_fence_decode(string, key):
     rails = []
     index = 0
     for count in rail_counts:
-        rails.append(list(string[index:index+count]))
+        rails.append(list(string[index:index + count]))
         index += count
     result = []
     for r in pattern:
